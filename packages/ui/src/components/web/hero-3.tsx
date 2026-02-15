@@ -2,9 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { cn } from "../../lib/utils"; // Assuming you have a `cn` utility from shadcn
-import { Pin } from "lucide-react";
+import { cn } from "../../lib/utils";
 import { DonationModal } from "./donation-modal";
 
 // Props interface for the component
@@ -157,15 +157,18 @@ export const AnimatedMarqueeHero: React.FC<AnimatedMarqueeHeroProps> = ({
           {duplicatedImages.map((src, index) => (
             <div
               key={index}
-              className="relative aspect-[3/4] h-48 md:h-64 flex-shrink-0"
+              className="relative aspect-[3/4] h-48 md:h-64 flex-shrink-0 overflow-hidden rounded-2xl"
               style={{
                 rotate: `${(index % 2 === 0 ? -2 : 5)}deg`,
               }}
             >
-              <img
+              <Image
                 src={src}
                 alt={`Showcase image ${index + 1}`}
-                className="w-full h-full object-cover rounded-2xl shadow-md"
+                fill
+                sizes="(max-width: 768px) 144px, 192px"
+                className="object-cover shadow-md"
+                priority={index < 2}
               />
             </div>
           ))}

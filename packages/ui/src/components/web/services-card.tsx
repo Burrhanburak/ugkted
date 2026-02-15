@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@repo/ui/components/ui/button";
 import { Badge } from "@repo/ui/components/ui/badge";
@@ -180,18 +181,20 @@ description = "Uluslararası iş birlikleri, eğitim programları ve girişimcil
                   className="group relative flex h-full flex-col items-start justify-start gap-2"
                 >
                   <div className="w-full">
-                    <div className="group relative z-10 overflow-hidden rounded-2xl">
-                      <img
+                    <div className="group relative z-10 aspect-[3/4] overflow-hidden rounded-2xl">
+                      <Image
                         alt={service.title}
-                        className="h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                        className="object-cover transition-opacity duration-500 group-hover:opacity-0"
                         src={service.image}
-                        style={{ aspectRatio: "3 / 4" }}
+                        fill
+                        sizes="(max-width: 768px) 334px, 400px"
                       />
-                      <img
-                        alt={service.title}
-                        className="absolute top-0 left-0 z-10 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      <Image
+                        alt={`${service.title} hover`}
+                        className="absolute inset-0 z-10 object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                         src={service.hoverImage}
-                        style={{ aspectRatio: "3 / 4" }}
+                        fill
+                        sizes="(max-width: 768px) 334px, 400px"
                       />
                       <Badge
                         variant="outline"

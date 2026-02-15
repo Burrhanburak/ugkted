@@ -321,7 +321,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
       data-state={row.getIsSelected() && "selected"}
       data-dragging={isDragging}
       ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
+      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80 [content-visibility:auto] [contain-intrinsic-size:0_48px]"
       style={{
         transform: CSS.Transform.toString(transform),
         transition: transition,

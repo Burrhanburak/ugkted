@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { ArrowRight, CheckCircle, Users, FileText, Briefcase, Globe, Hammer, UtensilsCrossed, Wrench, Car, Mic, Palette, BookOpen, Handshake, Cpu, Music, Camera, Award, Coffee, Building } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@repo/ui/components/ui/button";
@@ -218,11 +219,18 @@ export default function EventsPage() {
                   style={{ transform: `translate3d(${getTranslateX()}%, 0px, 0px)` }}
                 >
                   {carouselData.map((item, index) => (
-                    <div key={item.id} role="group" aria-roledescription="slide" data-slot="carousel-item" className="min-w-0 shrink-0 grow-0 basis-full px-2 md:basis-1/2 lg:basis-1/3">
+                    <div key={item.id} role="group" aria-roledescription="slide" data-slot="carousel-item" className="min-w-0 shrink-0 grow-0 basis-full px-2 md:basis-1/2 lg:basis-1/3 [content-visibility:auto] [contain-intrinsic-size:0_280px]">
                       <div className="p-1">
                         <div data-slot="card" className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl py-6  shadow-none">
                           <div data-slot="card-content" className="flex flex-col p-0">
-                            <div style={{ backgroundImage: `url("${item.image}")` }} className="relative flex aspect-[0.935802469] w-full flex-col items-center justify-between overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat p-7">
+                            <div className="relative flex aspect-[0.935802469] w-full flex-col items-center justify-between overflow-hidden rounded-2xl p-7">
+                              <Image
+                                src={item.image}
+                                alt={item.title}
+                                fill
+                                className="object-cover object-center -z-10"
+                                sizes="(max-width: 768px) 100vw, 400px"
+                              />
                               <div className="flex size-full flex-1"></div>
                               <div className="h-12 w-full">
                                 <div className="mx-auto mb-8 flex w-full max-w-[15rem] items-center justify-center gap-4 rounded-full backdrop-blur-sm px-3 py-2.5 shadow-xl">
@@ -269,6 +277,7 @@ export default function EventsPage() {
                 <button
                   onClick={prevSlide}
                   data-slot="carousel-previous"
+                  aria-label="Önceki etkinlik"
                   className="inline-flex items-center border-black/10 justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 rounded-full top-1/2 -left-12 static size-12 translate-y-0"
                   disabled={currentCarouselSlide === 0}
                 >
@@ -278,6 +287,7 @@ export default function EventsPage() {
                 <button
                   onClick={nextSlide}
                   data-slot="carousel-next"
+                  aria-label="Sonraki etkinlik"
                   className="inline-flex items-center border-black/10 justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 rounded-full top-1/2 -right-12 static size-12 translate-y-0"
                   disabled={currentCarouselSlide >= getMaxSlides()}
                 >

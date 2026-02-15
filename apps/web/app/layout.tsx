@@ -1,11 +1,12 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
-import Footer from "@repo/ui/components/web/Footer";
-import Header from "@repo/ui/components/web/Header";
-import { FeedbackWidget } from "@repo/ui/components/web/FeedbackWidget";
+import { ConditionalSiteChrome } from "../components/conditional-site-chrome";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap", // Reduce render blocking
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ugkted.org";
 
@@ -65,10 +66,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        <Header />
-        {children}
-        <Footer />
-        {/* <FeedbackWidget className="pb-8" /> */}
+        <ConditionalSiteChrome>{children}</ConditionalSiteChrome>
       </body>
     </html>
   );

@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@repo/ui"],
+  // Vercel React Best Practices: Avoid barrel imports (bundle-barrel-imports)
+  // 200-800ms import cost reduction, 15-70% faster dev boot
+  optimizePackageImports: ["lucide-react", "@tabler/icons-react"],
   images: {
     remotePatterns: [
       {

@@ -1,19 +1,36 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { AnimatedMarqueeHero } from "@repo/ui/components/web/hero-3";
 import LogoCloud from "@repo/ui/components/web/logo-cloud";
 import FeaturedSectionStats from "@repo/ui/components/web/FeaturedSectionStats";
 import FeaturesSection from "@repo/ui/components/web/FeaturesSeciton";
 import FAQs from "@repo/ui/components/web/faq";
 import { ServicesCarousel } from "@repo/ui/components/web/services-card";
-// import ApproachSection from "@repo/ui/components/web/ApproachSection";
-import BenefitsTabs from "@repo/ui/components/web/BenefitsTabs";
-import { CTASectionNew } from "@repo/ui/components/web/hero-dithering-card";
-import { UGKTEDTimeline } from "@repo/ui/components/web/ugkted-timeline";
-import Event from "@repo/ui/components/web/Event";
-import RecentBlogsSection from "@repo/ui/components/web/RecentBlogsSection";
-import TestimonialsComponent from "@repo/ui/components/web/TestimonialsComponent";
-import EcosystemMarqueeSection from "@repo/ui/components/web/EcosystemMarqueeSection";
 import Featuresone from "@repo/ui/components/web/Featuresone";
+import { CTASectionNew } from "@repo/ui/components/web/hero-dithering-card";
+
+// Vercel React Best Practices: Dynamic imports for below-fold heavy components (bundle-dynamic-imports)
+// Event: 20 lucide icons, EcosystemMarqueeSection: 8 icons, BenefitsTabs: large images
+const BenefitsTabs = dynamic(
+  () => import("@repo/ui/components/web/BenefitsTabs").then((m) => m.default),
+  { ssr: true }
+);
+const UGKTEDTimeline = dynamic(
+  () => import("@repo/ui/components/web/ugkted-timeline").then((m) => m.UGKTEDTimeline),
+  { ssr: true }
+);
+const Event = dynamic(
+  () => import("@repo/ui/components/web/Event").then((m) => m.default),
+  { ssr: true }
+);
+const TestimonialsComponent = dynamic(
+  () => import("@repo/ui/components/web/TestimonialsComponent").then((m) => m.default),
+  { ssr: true }
+);
+const EcosystemMarqueeSection = dynamic(
+  () => import("@repo/ui/components/web/EcosystemMarqueeSection").then((m) => m.default),
+  { ssr: true }
+);
 const DEMO_IMAGES = [
  
   "/8.png",

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Flame } from 'lucide-react'
 import { InfiniteSlider } from '../ui/infinite-slider'
 import { ProgressiveBlur } from '../ui/progressive-blur'
@@ -23,80 +24,18 @@ export default function LogoCloud() {
                             speedOnHover={20}
                             speed={40}
                             gap={112}>
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-5 w-fit dark:invert"
-                                    src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="50"
-                                    width="auto"
+                            {[20, 16, 16, 20, 20, 16, 28, 24].map((size, i) => (
+                              <div key={i} className="flex relative" style={{ height: size }}>
+                                <Image
+                                  className="mx-auto w-auto dark:invert object-contain"
+                                  src="/Bayrampasa-logo.png"
+                                  alt="Bayrampasa Belediyesi logo | UGKTED derneği"
+                                  height={size}
+                                  width={120}
+                                  sizes="120px"
                                 />
-                            </div>
-
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-4 w-fit dark:invert"
-                                    src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="16"
-                                    width="auto"
-                                />
-                            </div>
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-4 w-fit dark:invert"
-                                    src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="16"
-                                    width="auto"
-                                />
-                            </div>
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-5 w-fit dark:invert"
-                                     src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="20"
-                                    width="auto"
-                                />
-                            </div>
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-5 w-fit dark:invert"
-                                      src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="20"
-                                    width="auto"
-                                />
-                            </div>
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-4 w-fit dark:invert"
-                                     src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="16"
-                                    width="auto"
-                                />
-                            </div>
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-7 w-fit dark:invert"
-                                     src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="28"
-                                    width="auto"
-                                />
-                            </div>
-
-                            <div className="flex">
-                                <img
-                                    className="mx-auto h-6 w-fit dark:invert"
-                                    src="/Bayrampasa-logo.png"  
-                                    alt="Bayrampasa Belediyesi logo | UGKTED derneği"
-                                    height="24"
-                                    width="auto"
-                                />
-                            </div>
+                              </div>
+                            ))}
                         </InfiniteSlider>
 
                         <div className="bg-linear-to-r from-background absolute inset-y-0 left-0 w-20"></div>

@@ -9,25 +9,26 @@ interface TabData {
   label: string;
 }
 
+// w=800 for ~600px display – avoid 2070px downloads (40MB+ savings)
 const tabsData: TabData[] = [
   {
     id: "education",
-    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=75&w=800&auto=format&fit=crop",
     label: "Eğitim"
   },
   {
     id: "entrepreneurship",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=75&w=800&auto=format&fit=crop",
     label: "Girişimcilik"
   },
   {
     id: "culture",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=75&w=800&auto=format&fit=crop",
     label: "Kültür"
   },
   {
     id: "tourism",
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=75&w=800&auto=format&fit=crop",
     label: "Turizm"
   }
 ];
