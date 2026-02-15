@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { sendEmail } from "@/lib/email";
 
 export async function GET(request: Request) {
     // Verify Cron secret to prevent unauthorized access
@@ -9,18 +8,6 @@ export async function GET(request: Request) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // Example: Find pending members older than 7 days
-    const pendingMembers = await prisma.user.findMany({
-        where: {
-            status: "PENDING",
-            createdAt: {
-                lt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-            },
-        },
-    });
-
-    // Example: Send reminder emails (mocked log for now)
-    console.log(`Found ${pendingMembers.length} pending members.`);
-
-    return NextResponse.json({ success: true, count: pendingMembers.length });
+    const users = await prisma.user.findMany();
+    return NextResponse.json({ success: true, count: users.length });
 }

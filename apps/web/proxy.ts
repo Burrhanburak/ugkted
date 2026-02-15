@@ -27,7 +27,8 @@ export default async function authMiddleware(request: NextRequest) {
         if (isAuthRoute) {
             return NextResponse.redirect(new URL("/dashboard", request.url));
         }
-        if (isAdminRoute && session.user.role !== "ADMIN") {
+        const role = (session as { user?: { role?: string } })?.user?.role;
+        if (isAdminRoute && role !== "ADMIN") {
             // Redirect non-admins to dashboard
             return NextResponse.redirect(new URL("/dashboard", request.url));
         }

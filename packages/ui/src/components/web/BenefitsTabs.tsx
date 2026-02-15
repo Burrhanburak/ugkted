@@ -106,8 +106,8 @@ const contentData: Record<string, any> = {
 export default function JobSeekerBenefitsTabs() {
   const [activeTab, setActiveTab] = useState("education");
 
-  const currentTab = tabsData.find(tab => tab.id === activeTab) || tabsData[0];
-  const currentTabData = contentData[activeTab];
+  const currentTab = tabsData.find(tab => tab.id === activeTab) ?? tabsData[0]!;
+  const currentTabData = contentData[activeTab] ?? contentData.education;
 
   return (
     <section className="py-32 mx-auto container px-3">

@@ -882,7 +882,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
             (value, index) => index % 4 === 0 && value > 0,
           );
 
-          const opacity = squares[i * rows + j];
+          const opacity = squares[i * rows + j] ?? 0;
           const finalOpacity = hasText
             ? Math.min(1, opacity * 3 + 0.4)
             : opacity;
@@ -974,7 +974,7 @@ export const FlickeringGrid: React.FC<FlickeringGridProps> = ({
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
+        setIsInView(entry?.isIntersecting ?? false);
       },
       { threshold: 0 },
     );
