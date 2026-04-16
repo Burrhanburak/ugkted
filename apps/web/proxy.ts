@@ -15,34 +15,24 @@ export default async function authMiddleware(request: NextRequest) {
     );
 
     const pathName = request.nextUrl.pathname;
-    const isAuthRoute = pathName.startsWith("/login") || pathName.startsWith("/register");
-    const isAdminRoute = pathName.startsWith("/admin");
+    const isAuthRoute = pathName.startsWith("/register");
     const isDashboardRoute = pathName.startsWith("/dashboard") || pathName.startsWith("/profile");
 
     if (!session) {
-        if (isDashboardRoute || isAdminRoute) {
-            return NextResponse.redirect(new URL("/login", request.url));
+        if (isDashboardRoute) {
+            return NextResponse.redirect(new URL("/register", request.url));
         }
     } else {
         if (isAuthRoute) {
             return NextResponse.redirect(new URL("/dashboard", request.url));
         }
-        const role = (session as { user?: { role?: string } })?.user?.role;
-        if (isAdminRoute && role !== "ADMIN") {
-            // Redirect non-admins to dashboard
-            return NextResponse.redirect(new URL("/dashboard", request.url));
-        }
     }
+    // /admin — ayrı cookie oturumu (lib/admin-session); bu proxy’ye dahil değil
 
     return NextResponse.next();
 }
 
+/** Next.js 16: `proxy.ts` içinde literal olmalı; başka dosyadan re-export edilemez. */
 export const config = {
-    matcher: [
-        "/dashboard/:path*",
-        "/profile/:path*",
-        "/admin/:path*",
-        "/login",
-        "/register",
-    ],
+  matcher: ["/dashboard/:path*", "/profile/:path*", "/register"],
 };

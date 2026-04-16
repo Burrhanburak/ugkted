@@ -26,61 +26,41 @@ const defaultServices: Service[] = [
     title: "Proje Danışmanlığı",
     badge: "Stratejik Planlama",
     price: "Ön Görüşme",
-    href: "/services/consultancy",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-    hoverImage:
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800",
+    href: "/services/girisimcilik-ve-proje-danismanligi",
+    image: "/cdn/gallery/kurumsal-iletisim.webp",
+    hoverImage: "/cdn/gallery/yardim-rehberi.webp",
   },
   {
     title: "Girişimcilik Eğitimleri",
     badge: "Sertifikalı Programlar",
     price: "Başvuruya Açık",
-    href: "/services/training",
-    image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
-    hoverImage:
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800",
+    href: "/services/mentorluk-ve-kapasite-gelistirme",
+    image: "/cdn/gallery/yardim-rehberi.webp",
+    hoverImage: "/cdn/gallery/dernek-vakif.webp",
   },
   {
-    title: "Yatırımcı Ağı",
+    title: "Uluslararası İş Birliği",
     badge: "Global Bağlantılar",
     price: "Üyelere Özel",
-    href: "/services/networking",
-    image:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800",
-    hoverImage:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=800",
+    href: "/services/uluslararasi-is-birligi-ve-ag-gelistirme",
+    image: "/cdn/gallery/dernek-vakif.webp",
+    hoverImage: "/cdn/gallery/haber-merkezi.webp",
   },
   {
     title: "Kültür & Sanat Etkinlikleri",
     badge: "Sosyal Etki",
     price: "Etkinlik Takvimi",
-    href: "/services/culture",
-    image:
-      "https://images.unsplash.com/photo-1514525253440-b393452e8d26?auto=format&fit=crop&q=80&w=800",
-    hoverImage:
-      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800",
+    href: "/services/kultur-sanat-ve-topluluk-programlari",
+    image: "/cdn/gallery/haber-merkezi.webp",
+    hoverImage: "/cdn/gallery/kurumsal-iletisim.webp",
   },
   {
     title: "Turizm Projeleri",
     badge: "Sürdürülebilir Turizm",
     price: "Proje Bazlı",
-    href: "/services/tourism",
-    image:
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800",
-    hoverImage:
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=800",
-  },
-  {
-    title: "Hibe ve Fon Danışmanlığı",
-    badge: "Finansal Destek",
-    price: "Profesyonel Destek",
-    href: "/services/grants",
-    image:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800",
-    hoverImage:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
+    href: "/services/turizm-ve-yerel-kalkinma-programlari",
+    image: "/cdn/gallery/dernek-kurulus.webp",
+    hoverImage: "/cdn/gallery/kurumsal-iletisim.webp",
   },
 ];
 

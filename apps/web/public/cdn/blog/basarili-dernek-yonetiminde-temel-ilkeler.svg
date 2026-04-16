@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Basarili Dernek Yonetiminde Temel Ilkeler">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="64" y="120" fill="#f1f5f9" font-family="ui-sans-serif,system-ui,sans-serif" font-size="40" font-weight="700">UGKTED</text>
+  <text x="64" y="200" fill="#a5b4fc" font-family="ui-sans-serif,system-ui,sans-serif" font-size="32" font-weight="600">Ba&#x15F;ar&#x131;l&#x131; Dernek Y&#xF6;netiminde Temel &#x130;lkeler</text>
+  <text x="64" y="260" fill="#94a3b8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="22">Y&#xF6;neti&#x15F;im &#x2014; &#x15E;effafl&#x131;k &#x2014; S&#xFC;rd&#xFC;r&#xFC;lebilirlik</text>
+</svg>

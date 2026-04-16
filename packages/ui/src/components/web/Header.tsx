@@ -34,15 +34,25 @@ type NavRoute =
   | "/contact"
   | "/poems"
   | "/blog"
+  | "/news"
   | "/gallery"
   | "/books"
-  | "/events";
+  | "/events"
+  | "/board"
+  | "/bylaws"
+  | "/projects"
+  | "/publications"
+  | "/about/certificates-and-diploma"
+  | "/rehber";
 
 const menuItems: { name: string; href: NavRoute }[] = [
   { name: "Anasayfa", href: "/" },
   { name: "Kurumsal", href: "/about" },
   { name: "Projeler", href: "/services" },
+  { name: "Rehber", href: "/rehber" },
   { name: "Blog", href: "/blog" },
+  { name: "Haberler", href: "/news" },
+  { name: "Galeri", href: "/gallery" },
   { name: "Etkinlikler", href: "/events" },
   { name: "İletişim", href: "/contact" },
 ];
@@ -123,7 +133,7 @@ export default function Header() {
               onClick={() => setMenuState(false)}
               className="flex items-center"
             >
-              <Logo className="w-[96px] h-[30px] text-[#eb0010]" />
+              <Logo className="text-[#eb0010]" />
             </Link>
             <button
               className="text-sm font-bold uppercase text-[#eb0010]/80 "
@@ -158,10 +168,10 @@ export default function Header() {
               </ul>
 
               <div className="flex w-full items-center justify-between rounded-2xl bg-white/80 p-4 text-sm tracking-tight text-black/60 backdrop-blur-sm">
-                <Link href="/privacy" onClick={() => setMenuState(false)}>
+                <Link href="/privacy-policy" onClick={() => setMenuState(false)}>
                   Gizlilik
                 </Link>
-                <Link href="/terms" onClick={() => setMenuState(false)}>
+                <Link href="/terms-of-service" onClick={() => setMenuState(false)}>
                   Koşullar
                 </Link>
               </div>
@@ -169,7 +179,7 @@ export default function Header() {
               <div className="flex w-full flex-col gap-2">
                 <DonationModal>
                   <button
-                    className="flex-1 flex items-center justify-center rounded-2xl bg-[#eb0010] p-4 text-sm font-bold text-white backdrop-blur-sm"
+                    className="flex h-10 w-full items-center justify-center rounded-xl bg-[#eb0010] text-sm font-bold text-white backdrop-blur-sm"
                     onClick={() => setMenuState(false)}
                   >
                     💝 Bağış Yap
@@ -177,8 +187,8 @@ export default function Header() {
                 </DonationModal>
 
                 <Link
-                  href="/contact"
-                  className="flex-1 flex items-center justify-center rounded-2xl bg-white/80 border-2 border-[#eb0010] p-4 text-sm font-bold text-[#eb0010] backdrop-blur-sm"
+                  href="/register"
+                  className="flex h-10 w-full items-center justify-center rounded-xl border-2 border-[#eb0010] bg-white/80 text-sm font-bold text-[#eb0010] backdrop-blur-sm"
                   onClick={() => setMenuState(false)}
                 >
                   👤 Üye Ol
@@ -283,6 +293,50 @@ export default function Header() {
                     </NavigationMenu.Item>
 
                     <NavigationMenu.Item>
+                      <NavigationMenu.Trigger
+                        className={cn(
+                          "h-[58px] flex items-center mx-1 py-1 text-sm font-semibold text-[#eb0010]/80 hover:text-[#eb0010]/60 focus-visible:text-[#eb0010]/80 lg:mx-3 group select-none gap-[2px] outline-none transition duration-150 ease-in-out",
+                          (pathname?.startsWith("/rehber") || pathname === "/services/compare") &&
+                            "text-[#eb0010] font-bold"
+                        )}
+                      >
+                        Rehber
+                        <CaretDownIcon
+                          className="opacity-70 -ml-0.5 transition-transform duration-200 ease-in group-data-[state=open]:rotate-180"
+                          aria-hidden
+                        />
+                      </NavigationMenu.Trigger>
+                      <NavigationMenu.Content className="absolute p-2 left-1/2 -translate-x-1/2 top-full mt-2 w-full sm:w-auto">
+                        <ul className="m-0 grid list-none gap-x-2.5 p-[22px] sm:w-[720px] sm:grid-cols-3 bg-[#eb0010] rounded-[20px] border border-white/10 shadow-xl">
+                          <ListItem title="Rehber ana sayfa" href="/rehber">
+                            Dernek ve STK üzerine rehber yazılar; hizmet seçimi bağlantıları.
+                          </ListItem>
+                          <ListItem title="Dernek nedir?" href="/rehber/dernek-nedir">
+                            STK çerçevesi, vakıf farkı, sık sorulan sorular ve güvenilir kuruluş okuması.
+                          </ListItem>
+                          <ListItem title="STK nedir?" href="/rehber/stk-nedir">
+                            Sivil toplum kavramı, dernek ve vakıfla ilişki; etiket ile hukuki statü farkı.
+                          </ListItem>
+                          <ListItem title="Yönetim kurulu" href="/rehber/dernek-yonetim-kurulu-nedir">
+                            Derneklerde yönetim kurulunun rolü, temsil ve şeffaflık hakkında genel çerçeve.
+                          </ListItem>
+                          <ListItem title="Bağış şeffaflığı" href="/rehber/bagis-seffafligi-rehberi">
+                            Bağış öncesi kontrol listesi ve “en iyi liste” aramalarına temkinli yaklaşım.
+                          </ListItem>
+                          <ListItem title="Hizmet seçimi rehberi" href="/rehber/hizmet-secimi">
+                            Hedef ve çıktıya göre hangi alanın uygun olabileceğini adım adım inceleyin.
+                          </ListItem>
+                          <ListItem title="Tabloda karşılaştır" href="/services/compare">
+                            Beş hizmet alanını odak, kitle ve süre sütunlarıyla yan yana görün.
+                          </ListItem>
+                          <ListItem title="Tüm hizmetler" href="/services">
+                            Her başlığın detay sayfasına giden liste.
+                          </ListItem>
+                        </ul>
+                      </NavigationMenu.Content>
+                    </NavigationMenu.Item>
+
+                    <NavigationMenu.Item>
                       <NavigationMenu.Link asChild>
                         <Link
                           href="/events"
@@ -313,6 +367,34 @@ export default function Header() {
                     <NavigationMenu.Item>
                       <NavigationMenu.Link asChild>
                         <Link
+                          href="/news"
+                          className={cn(
+                            "h-[58px] flex items-center mx-1 py-1 text-sm font-semibold text-[#eb0010]/80 hover:text-[#eb0010]/60 focus-visible:text-[#eb0010]/80 lg:mx-3 outline-none",
+                            pathname === "/news" && "text-[#eb0010] font-bold"
+                          )}
+                        >
+                          Haberler
+                        </Link>
+                      </NavigationMenu.Link>
+                    </NavigationMenu.Item>
+
+                    <NavigationMenu.Item>
+                      <NavigationMenu.Link asChild>
+                        <Link
+                          href="/gallery"
+                          className={cn(
+                            "h-[58px] flex items-center mx-1 py-1 text-sm font-semibold text-[#eb0010]/80 hover:text-[#eb0010]/60 focus-visible:text-[#eb0010]/80 lg:mx-3 outline-none",
+                            pathname === "/gallery" && "text-[#eb0010] font-bold"
+                          )}
+                        >
+                          Galeri
+                        </Link>
+                      </NavigationMenu.Link>
+                    </NavigationMenu.Item>
+
+                    <NavigationMenu.Item>
+                      <NavigationMenu.Link asChild>
+                        <Link
                           href="/contact"
                           className={cn(
                             "h-[58px] flex items-center mx-1 py-1 text-sm font-semibold text-[#eb0010]/80 hover:text-[#eb0010]/60 focus-visible:text-[#eb0010]/80 lg:mx-3 outline-none",
@@ -332,7 +414,8 @@ export default function Header() {
               <DonationModal>
                 <Button
                   variant="outline"
-                  className="hidden md:flex border-white/80 text-[#eb0010]/80 hover:text-red-500"
+                  size="lg"
+                  className="hidden h-10 rounded-xl md:inline-flex border-white/80 text-[#eb0010]/80 hover:text-red-500"
                 >
                   Bağış Yap
                 </Button>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="UGKTED Kültür sanat ve topluluk programlar1">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <path d="M700 120 L980 315 L700 510 Z" fill="#ffffff" opacity="0.06"/>
+  <text x="64" y="110" fill="#f5f3ff" font-family="ui-sans-serif,system-ui,sans-serif" font-size="34" font-weight="700">UGKTED</text>
+  <text x="64" y="175" fill="#c4b5fd" font-family="ui-sans-serif,system-ui,sans-serif" font-size="26" font-weight="600">Kültür, sanat ve topluluk</text>
+  <text x="64" y="230" fill="#94a3b8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="20">Etkinlik serileri · kat1l1m · yerel ve uluslararas1 payda_lar</text>
+</svg>

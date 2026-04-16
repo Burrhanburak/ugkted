@@ -20,6 +20,9 @@ import { Label } from "../ui/label";
 
 export function DonationModal({ children }: { children: React.ReactNode }) {
     const [copied, setCopied] = useState(false);
+    const iban = "TR04 0001 5001 5800 7369 6240 49";
+    const bankName = "VakıfBank";
+    const accountName = "ULUSLARARASI GİRİŞİMCİ KÜLTÜR TURİZM VE EĞİTİM DERNEĞİ";
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text);
@@ -51,14 +54,14 @@ export function DonationModal({ children }: { children: React.ReactNode }) {
                                 <div className="flex items-center space-x-2">
                                     <Input
                                         id="iban"
-                                        value="TR00 0000 0000 0000 0000 0000 00"
+                                        value={iban}
                                         readOnly
                                         className="font-mono bg-muted border-none ring-0 focus-visible:ring-1 ring-primary"
                                     />
                                     <Button
                                         size="icon"
                                         variant="secondary"
-                                        onClick={() => handleCopy("TR00 0000 0000 0000 0000 0000 00")}
+                                        onClick={() => handleCopy(iban.replaceAll(" ", ""))}
                                     >
                                         <Copy className="h-4 w-4" />
                                     </Button>
@@ -66,18 +69,37 @@ export function DonationModal({ children }: { children: React.ReactNode }) {
                             </Field>
 
                             <Field>
-                                <Label htmlFor="account-name">Alıcı Adı</Label>
+                                <Label htmlFor="bank-name">Banka</Label>
                                 <div className="flex items-center space-x-2">
                                     <Input
-                                        id="account-name"
-                                        value="UGKTED Derneği"
+                                        id="bank-name"
+                                        value={bankName}
                                         readOnly
                                         className="bg-muted border-none ring-0 focus-visible:ring-1 ring-primary"
                                     />
                                     <Button
                                         size="icon"
                                         variant="secondary"
-                                        onClick={() => handleCopy("UGKTED Derneği")}
+                                        onClick={() => handleCopy(bankName)}
+                                    >
+                                        <Copy className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            </Field>
+
+                            <Field>
+                                <Label htmlFor="account-name">Hesap Adı</Label>
+                                <div className="flex items-center space-x-2">
+                                    <Input
+                                        id="account-name"
+                                        value={accountName}
+                                        readOnly
+                                        className="bg-muted border-none ring-0 focus-visible:ring-1 ring-primary"
+                                    />
+                                    <Button
+                                        size="icon"
+                                        variant="secondary"
+                                        onClick={() => handleCopy(accountName)}
                                     >
                                         <Copy className="h-4 w-4" />
                                     </Button>

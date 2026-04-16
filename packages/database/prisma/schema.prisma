@@ -16,3 +16,34 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
 }
+
+/// Üyelik / iletişim başvuruları (web + Worker aynı tablo)
+model MembershipLead {
+  id String   @id @default(cuid())
+  firstName  String   @map("first_name")
+  lastName   String   @map("last_name")
+  email      String
+  phone      String?  @map("phone")
+  /// Örn. faaliyet göstermek istenen alan (serbest metin)
+  activityArea String? @map("activity_area") @db.Text
+  /// Kaynak: web, worker, vb.
+  source     String   @default("web")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([email])
+  @@map("membership_leads")
+}
+
+/// İletişim sayfası formu
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String   @map("name")
+  email     String   @map("email")
+  subject   String   @map("subject")
+  message   String   @map("message") @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("contact_submissions")
+}

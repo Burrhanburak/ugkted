@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-label="UGKTED i_ birlii görseli">
+  <defs>
+    <linearGradient id="b" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#006241" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="600" rx="24" fill="url(#b)"/>
+  <rect x="80" y="160" width="120" height="120" rx="12" fill="#eb0010" opacity="0.14"/>
+  <rect x="280" y="200" width="120" height="120" rx="12" fill="#006241" opacity="0.2"/>
+  <path d="M200 260 L280 320 L200 380" stroke="#eb0010" stroke-width="6" fill="none" opacity="0.35" stroke-linecap="round"/>
+</svg>

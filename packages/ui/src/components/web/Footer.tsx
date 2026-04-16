@@ -27,7 +27,7 @@ export default function Footer() {
         {/* Content Container */}
         <div className="relative z-[4] flex flex-col items-start justify-between max-w-[1440px] mx-auto px-[50px] pt-[80px] pb-[50px] gap-[90px] lg:gap-[116px]">
           {/* Main Content Section */}
-          <div className="w-full flex flex-col items-center justify-start gap-[44px] max-w-[810px] mx-auto">
+          <div className="w-full flex flex-col items-center justify-start max-w-[810px] mx-auto">
             {/* Hero Text Section */}
             <div className="flex flex-col items-center justify-start gap-6 w-full">
               {/* Main Heading */}
@@ -80,9 +80,12 @@ export default function Footer() {
                 </DonationModal>
               </div>
             </div>
+          </div>
 
-            {/* Links Container */}
-            <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-[60px] min-h-min overflow-visible p-0 relative min-w-min">
+          {/* Link sütunları: üst genişlik sınırı (810px) dışında tam genişlik */}
+          <div className="w-full max-w-[1200px] mx-auto">
+            {/* Links Container — Rehber sütunu üst menüyle aynı hiyerarşide */}
+            <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-[60px] min-h-min overflow-visible p-0 relative min-w-min">
               {/* Kurumsal */}
               <div className="flex flex-col items-start  gap-[22px] min-h-min overflow-visible p-0 relative min-w-min">
                 <h3 className="text-[#eb0010]/80 text-sm leading-[129%] uppercase tracking-wider font-medium">
@@ -91,8 +94,42 @@ export default function Footer() {
                 <div className="flex flex-col gap-4">
                   {[
                     { label: "Hakkımızda", href: `/about` },
+                    { label: "Projelerimiz", href: `/projects` },
+                    { label: "Yayınlar", href: `/publications` },
+                    { label: "Yönetim Kurulu", href: `/board` },
+                    { label: "Tüzük", href: `/bylaws` },
+                    { label: "Belgelerimiz", href: `/about/certificates-and-diploma` },
                     { label: "Hizmetler", href: `/services` },
                     { label: "İletişim", href: `/contact` },
+                  ].map((link, index) => (
+                    <Link
+                      key={index}
+                      href={link.href}
+                      className="group flex items-center justify-between text-[#eb0010]/60 hover:text-[#eb0010]/80 text-sm leading-[129%] transition-colors duration-300 max-w-[200px]"
+                      prefetch={true}
+                    >
+                      <span>{link.label}</span>
+                      <ArrowUpRight className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Rehber */}
+              <div className="flex flex-col items-start gap-[22px] min-h-min overflow-visible p-0 relative min-w-min">
+                <h3 className="text-[#eb0010]/80 text-sm leading-[129%] uppercase tracking-wider font-medium">
+                  Rehber
+                </h3>
+                <div className="flex flex-col gap-4">
+                  {[
+                    { label: "Rehber ana sayfa", href: `/rehber` },
+                    { label: "Dernek nedir?", href: `/rehber/dernek-nedir` },
+                    { label: "STK nedir?", href: `/rehber/stk-nedir` },
+                    { label: "Yönetim kurulu", href: `/rehber/dernek-yonetim-kurulu-nedir` },
+                    { label: "Bağış şeffaflığı", href: `/rehber/bagis-seffafligi-rehberi` },
+                    { label: "Hizmet seçimi rehberi", href: `/rehber/hizmet-secimi` },
+                    { label: "Hizmetleri karşılaştır", href: `/services/compare` },
+                    { label: "Tüm hizmetler", href: `/services` },
                   ].map((link, index) => (
                     <Link
                       key={index}
@@ -117,6 +154,7 @@ export default function Footer() {
                     { label: "Etkinlikler", href: `/events` },
                     { label: "Haberler", href: `/news` },
                     { label: "Bloglar", href: `/blog` },
+                    { label: "Galeri", href: `/gallery` },
                   ].map((link, index) => (
                     <Link
                       key={index}
@@ -132,7 +170,7 @@ export default function Footer() {
               </div>
 
               {/* Üyelik */}
-              <div className="col-span-2 md:col-span-1 flex flex-col items-start justify-center gap-[22px] min-h-min overflow-visible p-0 relative w-full md:w-[225px]">
+              <div className="flex flex-col items-start justify-center gap-[22px] min-h-min overflow-visible p-0 relative w-full md:w-[225px]">
                 <h3 className="text-[#eb0010]/80 text-sm leading-[129%] uppercase tracking-wider font-medium">
                   Üyelik
                 </h3>

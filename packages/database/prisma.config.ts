@@ -2,8 +2,9 @@ import path from 'node:path'
 import { config } from 'dotenv'
 import { defineConfig, env } from 'prisma/config'
 
-// Load .env from monorepo root and package directory
+// Load .env from monorepo root, web app (Neon URL often lives here), and package directory
 config({ path: path.resolve(process.cwd(), '../../.env') })
+config({ path: path.resolve(process.cwd(), '../../apps/web/.env') })
 config({ path: path.resolve(process.cwd(), '.env') })
 
 // Fallback for prisma generate when no .env exists (create .env with real DATABASE_URL for runtime)

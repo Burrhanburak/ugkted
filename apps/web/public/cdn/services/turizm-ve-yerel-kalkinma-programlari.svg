@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="UGKTED Turizm ve yerel kalk1nma">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <ellipse cx="900" cy="380" rx="220" ry="140" fill="#ffffff" opacity="0.06"/>
+  <text x="64" y="110" fill="#ccfbf1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="34" font-weight="700">UGKTED</text>
+  <text x="64" y="175" fill="#5eead4" font-family="ui-sans-serif,system-ui,sans-serif" font-size="26" font-weight="600">Turizm ve yerel kalk1nma</text>
+  <text x="64" y="230" fill="#94a3b8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="20">Sürdürülebilir destinasyon · yerel ekonomi · payda_ a1</text>
+</svg>

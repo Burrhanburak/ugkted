@@ -1,0 +1,7 @@
+# Kopyala: cp .dev.vars.example .dev.vars
+# .dev.vars gitignore'da — asla commit etme.
+#
+# Yerel: wrangler dev / dev:remote — WORKER_SECRET Bearer ile POST /ai/* korunur.
+# Üretim: wrangler secret put WORKER_SECRET
+CLOUDFLARE_API_TOKEN=""
+WORKER_SECRET=""

@@ -11,8 +11,9 @@ export function ConditionalSiteChrome({
 }) {
   const pathname = usePathname();
   const isStudio = pathname?.startsWith("/studio");
+  const isAuthPage = pathname?.startsWith("/register");
 
-  if (isStudio) {
+  if (isStudio || isAuthPage) {
     return <main id="main-content">{children}</main>;
   }
 

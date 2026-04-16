@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { r2 } from "@/lib/r2";
+import { getCdnBaseUrl } from "@/lib/cdn";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { auth } from "../../../lib/auth";
@@ -32,9 +33,14 @@ export async function POST(request: Request) {
         { expiresIn: 3600 }
     );
 
+    const cdnBase = getCdnBaseUrl();
+    if (!cdnBase) {
+        return new NextResponse("CDN base URL not configured (NEXT_PUBLIC_CDN_URL)", { status: 500 });
+    }
+
     return NextResponse.json({
         url: signedUrl,
         filename: uniqueFilename,
-        publicUrl: `${process.env.R2_PUBLIC_DOMAIN}/${uniqueFilename}`
+        publicUrl: `${cdnBase}/${uniqueFilename}`,
     });
 }

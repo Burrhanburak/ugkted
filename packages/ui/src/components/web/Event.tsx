@@ -1,14 +1,47 @@
-'use client';
+"use client";
 
 import Image from "next/image";
-import { ArrowRight, CheckCircle, Users, FileText, Briefcase, Globe, Hammer, UtensilsCrossed, Wrench, Car, Mic, Palette, BookOpen, Handshake, Cpu, Music, Camera, Award, Coffee, Building } from "lucide-react";
+import {
+  ArrowRight,
+  Users,
+  Briefcase,
+  Globe,
+  Mic,
+  Palette,
+  BookOpen,
+  Handshake,
+  Cpu,
+  Music,
+  Camera,
+  Award,
+  Coffee,
+  Building,
+  Wrench,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@repo/ui/components/ui/button";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@repo/ui/lib/utils";
 
-export default function EventsPage() {
-  const [activeTab, setActiveTab] = useState(0);
+/** Unsplash — apps/web next.config images.remotePatterns */
+const EV_IMG = {
+  summit:
+    "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=900&q=80&auto=format&fit=crop",
+  culture:
+    "https://images.unsplash.com/photo-1461301214746-1e790926d323?w=900&q=80&auto=format&fit=crop",
+  workshop:
+    "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&q=80&auto=format&fit=crop",
+  network:
+    "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80&auto=format&fit=crop",
+  tech: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80&auto=format&fit=crop",
+} as const;
+
+export type EventsCarouselProps = {
+  /** Tam sayfa yerine içerik bloğu olarak kullanıldığında üst boşlukları sıfırlar */
+  embedInPage?: boolean;
+};
+
+export default function EventsPage({ embedInPage }: EventsCarouselProps = {}) {
   const [currentCarouselSlide, setCurrentCarouselSlide] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -28,7 +61,8 @@ export default function EventsPage() {
   const carouselData = [
     {
       id: 1,
-      image: "/images/event_summit.png",
+      slug: "uluslararasi-girisimcilik-zirvesi",
+      image: EV_IMG.summit,
       icon1: <Mic className="m-auto size-4" />,
       icon2: <Users className="m-auto size-4" />,
       status: "Kayıtlar Başladı",
@@ -37,7 +71,8 @@ export default function EventsPage() {
     },
     {
       id: 2,
-      image: "/images/event_culture.png",
+      slug: "kultur-ve-sanat-gunleri",
+      image: EV_IMG.culture,
       icon1: <Palette className="m-auto size-4" />,
       icon2: <Music className="m-auto size-4" />,
       status: "Yakında",
@@ -46,7 +81,8 @@ export default function EventsPage() {
     },
     {
       id: 3,
-      image: "/images/event_workshop.png",
+      slug: "egitim-ve-atolye-calismalari",
+      image: EV_IMG.workshop,
       icon1: <BookOpen className="m-auto size-4" />,
       icon2: <Briefcase className="m-auto size-4" />,
       status: "Devam Ediyor",
@@ -55,7 +91,8 @@ export default function EventsPage() {
     },
     {
       id: 4,
-      image: "/images/event_networking.png",
+      slug: "networking-bulusmalari",
+      image: EV_IMG.network,
       icon1: <Handshake className="m-auto size-4" />,
       icon2: <Coffee className="m-auto size-4" />,
       status: "Davetiye ile",
@@ -64,7 +101,8 @@ export default function EventsPage() {
     },
     {
       id: 5,
-      image: "/images/event_tech.png",
+      slug: "teknoloji-ve-inovasyon-fuari",
+      image: EV_IMG.tech,
       icon1: <Cpu className="m-auto size-4" />,
       icon2: <Globe className="m-auto size-4" />,
       status: "Planlanıyor",
@@ -74,7 +112,7 @@ export default function EventsPage() {
     // Repated items to fill carousel visual
     {
       id: 6,
-      image: "/images/event_summit.png",
+      image: EV_IMG.summit,
       icon1: <Award className="m-auto size-4" />,
       icon2: <Users className="m-auto size-4" />,
       status: "Tamamlandı",
@@ -83,7 +121,7 @@ export default function EventsPage() {
     },
     {
       id: 7,
-      image: "/images/event_culture.png",
+      image: EV_IMG.culture,
       icon1: <Camera className="m-auto size-4" />,
       icon2: <Palette className="m-auto size-4" />,
       status: "Açık",
@@ -92,7 +130,7 @@ export default function EventsPage() {
     },
     {
       id: 8,
-      image: "/images/event_workshop.png",
+      image: EV_IMG.workshop,
       icon1: <Building className="m-auto size-4" />,
       icon2: <BookOpen className="m-auto size-4" />,
       status: "Kontenjan Dolu",
@@ -101,7 +139,7 @@ export default function EventsPage() {
     },
     {
       id: 9,
-      image: "/images/event_networking.png",
+      image: EV_IMG.network,
       icon1: <Users className="m-auto size-4" />,
       icon2: <Globe className="m-auto size-4" />,
       status: "Başvuru Bekleniyor",
@@ -110,7 +148,7 @@ export default function EventsPage() {
     },
     {
       id: 10,
-      image: "/images/event_tech.png",
+      image: EV_IMG.tech,
       icon1: <Wrench className="m-auto size-4" />,
       icon2: <Cpu className="m-auto size-4" />,
       status: "Hazırlık Aşamasında",
@@ -151,67 +189,29 @@ export default function EventsPage() {
         carouselData.length - 1;
   };
 
-  const tabs = [
-    {
-      id: 'planning',
-      title: 'Etkinlik Planlama',
-      content: {
-        title: 'Profesyonel Etkinlik Yönetimi',
-        subtitle: 'Fikir aşamasından uygulamaya kadar titiz planlama.',
-        description: 'Her etkinliğin başarısı, detaylı bir planlama sürecine bağlıdır. Ekibimiz, vizyonunuzu gerçeğe dönüştürmek için stratejik bir yol haritası oluşturur.',
-        detail: 'Bütçe yönetimi, mekan seçimi, zaman çizelgesi oluşturma ve kaynak planlaması konularında uzman desteği sağlıyoruz.',
-        footer: 'Daha iyi organizasyonlar için yanınızdayız.',
-        icon: <Briefcase className="w-24 h-24 text-[#eb0010]" />,
-        bgColor: 'from-red-50 to-orange-100 dark:from-red-900/20 dark:to-orange-900/20'
-      }
-    },
-    {
-      id: 'participation',
-      title: 'Katılım Süreci',
-      content: {
-        title: 'Kolay ve Hızlı Katılım',
-        subtitle: 'Etkinliklerimize katılmak artık çok daha pratik.',
-        description: 'Online kayıt sistemimiz sayesinde dilediğiniz etkinliğe saniyeler içinde başvurabilirsiniz. QR kodlu bilet sistemi ile girişlerde bekleme yapmazsınız.',
-        detail: 'Mobil uygulamamız üzerinden etkinlik programını takip edebilir, konuşmacılara soru sorabilir ve anketlere katılabilirsiniz.',
-        footer: 'Teknoloji ile entegre deneyim.',
-        icon: <CheckCircle className="w-24 h-24 text-green-600" />,
-        bgColor: 'from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20'
-      }
-    },
-    {
-      id: 'sponsorship',
-      title: 'Sponsorluk İmkanları',
-      content: {
-        title: 'Markanızı Görünür Kılın',
-        subtitle: 'Hedef kitlenize doğrudan ulaşma fırsatı.',
-        description: 'UGKTED etkinlikleri, markanızın değerini artırmak ve yeni iş birlikleri kurmak için mükemmel bir platform sunar.',
-        detail: 'Stand alanları, oturum sponsorlukları, dijital reklam alanları ve özel networking fırsatları ile markanızı öne çıkarın.',
-        footer: 'Birlikte büyüyelim.',
-        icon: <Globe className="w-24 h-24 text-purple-600" />,
-        bgColor: 'from-purple-50 to-violet-100 dark:from-purple-900/20 dark:to-violet-900/20'
-      }
-    }
-  ];
-
-  const handleTabClick = (index: number) => {
-    setActiveTab(index);
-  };
-
-  const router = useRouter();
-
   return (
     <>
-      <section className="relative w-full mt-2.5 rounded-t-2xl rounded-b-[36px]  py-10 dark:from-amber-950 overflow-hidden">
+      <section
+        className={cn(
+          "relative w-full rounded-t-2xl bg-muted/20 rounded-b-[36px]  dark:from-amber-950 overflow-hidden",
+          embedInPage ? "mt-0" : "mt-2.5"
+        )}
+      >
         <section className="">
           <div className="container mx-auto px-4">
-            <div className="flex w-full flex-col items-center justify-center gap-4">
-              <h2 className="mx-auto max-w-[21.875rem] text-center text-4xl leading-none font-medium md:max-w-[28.125rem] md:text-5xl lg:max-w-[35rem] lg:text-6xl">
-                UGKTED Etkinlikleri
-              </h2>
-              <p className="mx-auto max-w-[21.875rem] text-center text-lg font-medium md:max-w-[28.125rem] md:text-xl lg:max-w-[35rem] lg:text-2xl">
-                Girişimcilik, kültür, turizm ve eğitim alanında uluslararası organizasyonlar, zirveler, atölyeler ve networking buluşmaları.
-              </p>
-            </div>
+            {!embedInPage ? (
+              <div className="flex w-full flex-col items-center justify-center gap-4">
+                <h2 className="mx-auto max-w-[21.875rem] text-center text-4xl leading-none font-medium md:max-w-[28.125rem] md:text-5xl lg:max-w-[35rem] lg:text-6xl">
+                  UGKTED Etkinlikleri
+                </h2>
+                <p className="mx-auto max-w-[21.875rem] text-center text-lg font-medium md:max-w-[28.125rem] md:text-xl lg:max-w-[35rem] lg:text-2xl">
+                  Girişimcilik, kültür, turizm ve eğitim alanında uluslararası organizasyonlar,
+                  zirveler, atölyeler ve networking buluşmaları.
+                </p>
+              </div>
+            ) : (
+              <p className="sr-only">Öne çıkan etkinlikler</p>
+            )}
             <div className="relative w-full overflow-hidden" role="region" aria-roledescription="carousel" data-slot="carousel">
               <div className="overflow-hidden" data-slot="carousel-content">
                 <div
@@ -221,51 +221,68 @@ export default function EventsPage() {
                   {carouselData.map((item, index) => (
                     <div key={item.id} role="group" aria-roledescription="slide" data-slot="carousel-item" className="min-w-0 shrink-0 grow-0 basis-full px-2 md:basis-1/2 lg:basis-1/3 [content-visibility:auto] [contain-intrinsic-size:0_280px]">
                       <div className="p-1">
-                        <div data-slot="card" className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl py-6  shadow-none">
+                        <div data-slot="card" className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl py-6 shadow-none">
                           <div data-slot="card-content" className="flex flex-col p-0">
-                            <div className="relative flex aspect-[0.935802469] w-full flex-col items-center justify-between overflow-hidden rounded-2xl p-7">
-                              <Image
-                                src={item.image}
-                                alt={item.title}
-                                fill
-                                className="object-cover object-center -z-10"
-                                sizes="(max-width: 768px) 100vw, 400px"
-                              />
-                              <div className="flex size-full flex-1"></div>
-                              <div className="h-12 w-full">
-                                <div className="mx-auto mb-8 flex w-full max-w-[15rem] items-center justify-center gap-4 rounded-full backdrop-blur-sm px-3 py-2.5 shadow-xl">
-                                  <div className="shrink-0">
-                                    <div className="flex -space-x-2">
-                                      <div className="flex size-7 rounded-full border bg-white">
-                                        {item.icon1}
-                                      </div>
-                                      <div className="flex size-7 rounded-full border bg-white">
-                                        {item.icon2}
+                            {/** Detail öncelikli yönlendirme: slug varsa her zaman detail sayfasına gider */}
+                            {(() => {
+                              const detailHref = item.slug ? `/events/${item.slug}` : "/contact";
+                              return (
+                                <>
+                            <Link
+                              href={detailHref}
+                              className="group block"
+                              aria-label={`${item.title} detay sayfasına git`}
+                            >
+                              <div className="relative flex aspect-[0.935802469] w-full flex-col items-center justify-between overflow-hidden rounded-2xl p-7">
+                                <Image
+                                  src={item.image}
+                                  alt={item.title}
+                                  fill
+                                  className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
+                                  sizes="(max-width: 768px) 100vw, 400px"
+                                />
+                                <div className="flex size-full flex-1"></div>
+                                <div className="h-12 w-full">
+                                  <div className="mx-auto mb-8 flex w-full max-w-[15rem] items-center justify-center gap-4 rounded-full backdrop-blur-sm px-3 py-2.5 ">
+                                    <div className="shrink-0">
+                                      <div className="flex -space-x-2">
+                                        <div className="flex size-7 rounded-full border bg-white">
+                                          {item.icon1}
+                                        </div>
+                                        <div className="flex size-7 rounded-full border bg-white">
+                                          {item.icon2}
+                                        </div>
                                       </div>
                                     </div>
+                                    <div className="text-sm font-medium text-white">{item.status}</div>
                                   </div>
-                                  <div className="text-sm font-medium text-white">{item.status}</div>
                                 </div>
                               </div>
-                            </div>
-                            <div className="flex w-full flex-col gap-1 pt-6">
-                              <h3 className="text-xl font-medium text-foreground">{item.title}</h3>
-                              <p className="text-sm">{item.description}</p>
+                              <div className="flex w-full flex-col gap-1 pt-6">
+                                <h3 className="text-xl font-medium text-foreground transition-colors group-hover:text-primary">
+                                  {item.title}
+                                </h3>
+                                <p className="text-sm">{item.description}</p>
+                              </div>
+                            </Link>
+                            <div className="flex w-full flex-col gap-1 pt-3">
                               <div className="mt-3">
                                 <Button
                                   size="sm"
                                   variant="secondary"
                                   className="text-xs h-7 px-3 bg-[#fafafa] border-black/10"
-                                  onClick={() => {
-                                    // Static routing for demo
-                                    console.log("Details clicked for", item.title);
-                                  }}
+                                  asChild
                                 >
-                                  Detayları İncele
-                                  <ArrowRight className="w-3 h-3 ml-1" />
+                                  <Link href={detailHref}>
+                                    Detayı gör / kayıt
+                                    <ArrowRight className="ml-1 w-3 h-3" />
+                                  </Link>
                                 </Button>
                               </div>
                             </div>
+                                </>
+                              );
+                            })()}
                           </div>
                         </div>
                       </div>

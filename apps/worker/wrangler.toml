@@ -1,6 +1,53 @@
+# UGKTED — AI içerik + görsel üretimi, çıktılar yalnızca R2 (CDN); apps/web/public/cdn kullanılmaz.
+#
+# Canlı URL (bu hesap): https://ugkted-worker.burhanburakozcaan.workers.dev
+# workers.dev alt alanı Dashboard’da görünmez / liste boş olabilir; ilk kez `wrangler deploy` sonrası
+# Worker oluşur ve bu adres cevap vermeye başlar.
+#
+# Cloudflare AI:
+# - Metin: @cf/google/gemma-4-26b-a4b-it
+# - Görsel: @cf/black-forest-labs/flux-2-klein-4b (veya klein-9b / flux-2-dev)
+# - TTS: @cf/deepgram/aura-2-en | aura-2-es
+# - AI Gateway: log/cache/rate-limit için; Worker’da fetch ile gateway endpoint veya ileride binding.
+# - Vectorize: API token’da “Vectorize — Edit” izni + index gerekir. Şimdilik binding kapalı;
+#   açınca: wrangler vectorize create ugkted-content --dimensions=768 --metric=cosine
+#   sonra aşağıdaki [[vectorize]] bloğunun yorumunu kaldır.
+# - AI Search (beta): ürün API’sine göre ayrı entegrasyon.
+#
+# Kurulum:
+# 1) Cloudflare’de R2 bucket oluştur; özel alanı (cdn.ugkted.com) bu bucket’a bağla.
+# 2) bucket_name aşağıda gerçek bucket adınla değiştir.
+# 3) wrangler secret put WORKER_SECRET — güçlü bir token (API çağrılarında Authorization: Bearer …)
+# 4) wrangler secret put DATABASE_URL — Neon connection string (POST /data/leads → membership_leads; Next admin ile aynı DB)
+#
+# API token (CLOUDFLARE_API_TOKEN) için Dashboard → My Profile → API Tokens:
+#   Account — Workers Scripts — Edit (deploy için şart)
+#   Account — Workers Secrets — Edit (secret put için)
+#   Account — Workers AI — Read veya Edit (model çağrıları)
+#   Account — Vectorize — Edit (RAG istiyorsan; yoksa [[vectorize]] kapalı kalsın)
+#   Account — R2 Storage — okuma/yazma (R2 binding kullanımı)
+# Alternatif: `cd apps/worker && npx wrangler login` (OAuth; genelde tüm Workers işleri açılır)
+#
+# Yerel: Workers AI için genelde `bun run dev:remote`.
 name = "ugkted-worker"
-main = "src/index.js"
-compatibility_date = "2024-01-01"
+main = "src/index.ts"
+compatibility_date = "2024-12-30"
+account_id = "5e5f8a26d62e3255d96f4410baf43d73"
+
+[ai]
+binding = "AI"
+
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+# Cloudflare paneldeki bucket adı (hesapta: ugkted)
+bucket_name = "ugkted"
+
+# [[vectorize]]
+# binding = "VECTOR_INDEX"
+# index_name = "ugkted-content"
 
 [vars]
-KEY = "value"
+# R2 özel alan kökü (object key ile birleştirilir: https://cdn.../cdn/blog/foo.png)
+CDN_PUBLIC_BASE = "https://cdn.ugkted.com"
+# AI Gateway adı (Dashboard → AI → Gateways). Boş = doğrudan Workers AI.
+AI_GATEWAY_ID = ""

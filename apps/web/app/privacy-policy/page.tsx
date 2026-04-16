@@ -1,14 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@repo/ui/components/ui/breadcrumb";
-import { ArrowLeftIcon } from "lucide-react";
+import { SiteBreadcrumb } from "@/components/site-breadcrumb";
+import { BackNavLink } from "@/components/back-nav-link";
 
 export const metadata: Metadata = {
   title: "Gizlilik Politikası",
@@ -19,19 +11,13 @@ export default function PrivacyPolicyPage() {
   return (
     <section className="py-20 md:py-32 w-full">
       <div className="container px-6 py-6 max-w-3xl mx-auto">
-        <Breadcrumb className="mb-8">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Anasayfa</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Gizlilik Politikası</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <SiteBreadcrumb
+          className="mb-8"
+          items={[
+            { label: "Anasayfa", href: "/" },
+            { label: "Gizlilik Politikası" },
+          ]}
+        />
 
         <h1 className="text-4xl font-bold mb-8 text-foreground">Gizlilik Politikası</h1>
         <p className="text-muted-foreground text-sm mb-12">Son güncelleme: 14 Şubat 2026</p>
@@ -113,16 +99,6 @@ export default function PrivacyPolicyPage() {
               <a href="mailto:info@ugkted.com" className="text-primary hover:underline">info@ugkted.com</a>
             </p>
           </section>
-        </div>
-
-        <div className="flex items-center gap-2 mt-16 pt-8 border-t">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-primary hover:underline text-sm font-medium"
-          >
-            <ArrowLeftIcon className="w-4 h-4" />
-            <span>Anasayfaya Dön</span>
-          </Link>
         </div>
       </div>
     </section>

@@ -62,17 +62,17 @@ export function CTASectionNew() {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/login"
+                href="/register"
                 className="group relative inline-flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full border border-white/10 backdrop-blur-sm bg-white/5 px-12 text-base font-medium text-white transition-all duration-300 hover:bg-primary/90 hover:scale-105 active:scale-95 hover:ring-4 hover:ring-primary/20"
               >
-                <span className="relative z-10">Giriş Yap</span>
+                <span className="relative z-10">Üye Ol</span>
                 <ArrowRight className="h-5 w-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
-                href="/register"
+                href="/contact"
                 className="group relative inline-flex h-14 items-center justify-center gap-3 overflow-hidden rounded-full border-2 border-white px-12 text-base font-medium text-white transition-all duration-300 hover:bg-white hover:text-primary hover:scale-105 active:scale-95"
               >
-                <span className="relative z-10">Üye Ol</span>
+                <span className="relative z-10">İletişim</span>
               </Link>
             </div>
           </div>

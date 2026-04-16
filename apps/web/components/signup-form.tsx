@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { CheckCircle2, Mail, Phone, User } from "lucide-react";
 import { cn } from "@repo/ui/lib/utils";
 import { Button } from "@repo/ui/components/ui/button";
 import { Input } from "@repo/ui/components/ui/input";
@@ -9,61 +11,216 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@repo/ui/components/ui/field";
+import Image from "next/image";
+
+const inputClass =
+  "h-10 rounded-xl border-zinc-950/10 bg-background text-sm shadow-none md:text-sm";
+
+const textareaClass = cn(
+  "placeholder:text-muted-foreground min-h-[100px] w-full rounded-xl border border-zinc-950/10 bg-background px-3 py-2.5 text-sm shadow-none",
+  "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none resize-y",
+  "disabled:opacity-50"
+);
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-  return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
-      <FieldGroup>
-        <div className="flex flex-col items-center gap-1 text-center">
-          <h1 className="text-2xl font-bold">Hesap oluşturun</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            UGKTED ailesine katılmak için bilgilerinizi girin
+  const [status, setStatus] = useState<"idle" | "pending" | "ok" | "err">("idle");
+  const [errMsg, setErrMsg] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const firstName = String(fd.get("firstName") ?? "").trim();
+    const lastName = String(fd.get("lastName") ?? "").trim();
+    const email = String(fd.get("email") ?? "").trim();
+    const phone = String(fd.get("phone") ?? "").trim();
+    const activityArea = String(fd.get("activityArea") ?? "").trim();
+    setStatus("pending");
+    setErrMsg(null);
+    try {
+      const res = await fetch("/api/membership", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, email, phone, activityArea }),
+      });
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { error?: string };
+        setErrMsg(data.error ?? "Gönderilemedi");
+        setStatus("err");
+        return;
+      }
+      setStatus("ok");
+      form.reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setErrMsg("Ağ hatası");
+      setStatus("err");
+    }
+  }
+
+  if (status === "ok") {
+    return (
+      <div
+        className={cn(
+          "flex flex-col gap-6 rounded-2xl border border-emerald-600/25 bg-emerald-50/80 p-6 text-center dark:border-emerald-500/30 dark:bg-emerald-950/40",
+          className
+        )}
+        role="status"
+        aria-live="polite"
+      >
+        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-emerald-600/15 text-emerald-700 dark:text-emerald-400">
+          <CheckCircle2 className="size-8" aria-hidden />
+        </div>
+        <div className="space-y-2">
+          <h1 className="text-xl font-bold tracking-tight text-foreground">Üye başvurunuz alındı</h1>
+          <p className="text-sm text-muted-foreground text-balance leading-relaxed">
+            Başvurunuz kaydedildi ve yönetim kurulumuz tarafından inceleniyor. Değerlendirme tamamlandığında{" "}
+            <span className="font-medium text-foreground">e-posta veya telefon</span> ile bilgilendirileceksiniz.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <Button asChild className="h-10 w-full rounded-xl border border-zinc-950/10 bg-[#eb0010] text-background hover:bg-[#eb0010]/90">
+          <Link href="/">Ana sayfaya dön</Link>
+        </Button>
+        <p className="text-xs text-muted-foreground">
+          Sorunuz varsa{" "}
+          <Link href="/contact" className="font-medium underline underline-offset-4 hover:text-primary">
+            iletişim
+          </Link>{" "}
+          sayfasından yazabilirsiniz.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form {...props} className={cn("flex flex-col gap-6", className)} onSubmit={handleSubmit}>
+      <FieldGroup className="gap-6">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <div className="flex flex-col items-center gap-2 font-medium">
+            <div className="text-primary-foreground flex size-10 items-center justify-center rounded-xl">
+              <Image src="/favicon.ico" className="" alt="UGKTED" width={30} height={30} />
+            </div>
+            <span className="sr-only">UGKTED</span>
+          </div>
+          <h1 className="text-xl font-bold tracking-tight">Dernek üyeliği başvurusu</h1>
+          <p className="text-muted-foreground text-sm text-balance">
+            Şifre veya hesap oluşturma yoktur. Bilgileriniz yalnızca başvuruyu değerlendirmek için kaydedilir.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field>
             <FieldLabel htmlFor="name">Ad</FieldLabel>
-            <Input id="name" placeholder="Adınız" required />
+            <div className="relative">
+              <User
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                aria-hidden
+              />
+              <Input
+                id="name"
+                name="firstName"
+                placeholder="Adınız"
+                required
+                disabled={status === "pending"}
+                className={cn(inputClass, "pl-10")}
+              />
+            </div>
           </Field>
           <Field>
             <FieldLabel htmlFor="surname">Soyad</FieldLabel>
-            <Input id="surname" placeholder="Soyadınız" required />
+            <div className="relative">
+              <User
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                aria-hidden
+              />
+              <Input
+                id="surname"
+                name="lastName"
+                placeholder="Soyadınız"
+                required
+                disabled={status === "pending"}
+                className={cn(inputClass, "pl-10")}
+              />
+            </div>
           </Field>
         </div>
+
         <Field>
           <FieldLabel htmlFor="email">E-posta</FieldLabel>
-          <Input id="email" type="email" placeholder="ornek@email.com" required />
+          <div className="relative">
+            <Mail
+              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden
+            />
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="ornek@email.com"
+              required
+              disabled={status === "pending"}
+              className={cn(inputClass, "pl-10")}
+            />
+          </div>
         </Field>
+
         <Field>
-          <FieldLabel htmlFor="password">Şifre</FieldLabel>
-          <Input id="password" type="password" required />
+          <FieldLabel htmlFor="phone">Telefon</FieldLabel>
+          <div className="relative">
+            <Phone
+              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden
+            />
+            <Input
+              id="phone"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              placeholder="05xx xxx xx xx"
+              required
+              disabled={status === "pending"}
+              className={cn(inputClass, "pl-10")}
+            />
+          </div>
         </Field>
+
         <Field>
-          <Button type="submit" className="w-full">Üye Ol</Button>
+          <FieldLabel htmlFor="activityArea">Faaliyet alanı</FieldLabel>
+          <textarea
+            id="activityArea"
+            name="activityArea"
+            placeholder="Hangi alanda faaliyet göstermek veya UGKTED ile nasıl iş birliği yapmak istediğinizi kısaca yazın (ör. kültür, eğitim, girişimcilik, gönüllülük…)."
+            required
+            rows={4}
+            disabled={status === "pending"}
+            className={textareaClass}
+          />
+          <FieldDescription>En az birkaç cümle; başvurunuzun değerlendirilmesine yardımcı olur.</FieldDescription>
         </Field>
-        <FieldSeparator>veya</FieldSeparator>
+
+        {errMsg ? <p className="text-center text-sm text-destructive">{errMsg}</p> : null}
+
         <Field>
-          <Button variant="outline" type="button" className="w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-4 mr-2">
-              <path
-                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                fill="currentColor"
-              />
-            </svg>
-            GitHub ile üye ol
+          <Button
+            type="submit"
+            disabled={status === "pending"}
+            className="h-10 w-full rounded-xl border border-zinc-950/10 bg-[#eb0010] text-background hover:bg-[#eb0010]/90"
+          >
+            {status === "pending" ? "Gönderiliyor…" : "Başvuruyu gönder"}
           </Button>
-          <FieldDescription className="text-center">
-            Zaten hesabınız var mı?{" "}
-            <Link href="/login" className="underline underline-offset-4 hover:text-primary">
-              Giriş yapın
-            </Link>
-          </FieldDescription>
         </Field>
+
+        <FieldDescription className="text-center">
+          Sorularınız için{" "}
+          <Link href="/contact" className="underline underline-offset-4 hover:text-primary">
+            iletişime geçin
+          </Link>
+          .
+        </FieldDescription>
       </FieldGroup>
     </form>
   );

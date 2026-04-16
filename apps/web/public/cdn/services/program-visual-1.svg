@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-label="UGKTED program görseli">
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eb0010" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#006241" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="600" rx="24" fill="url(#a)"/>
+  <circle cx="240" cy="260" r="120" fill="#eb0010" opacity="0.12"/>
+  <path d="M120 420 Q240 360 360 420 L360 520 Q240 460 120 520 Z" fill="#006241" opacity="0.15"/>
+</svg>
